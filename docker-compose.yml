@@ -1,0 +1,9 @@
+version: '3'
+services:
+  corgibot:
+    build:
+      context: .
+    image: "zate75/corgibot"
+    container_name: corgibot
+    command: /corgibot
+    restart: always

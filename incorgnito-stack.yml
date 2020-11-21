@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  corgibot:
+    image: zate75/corgibot:latest
+    command: /corgibot
+    networks:
+     - default
+    logging:
+      driver: json-file
+    secrets:
+     - botkey
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+          
+networks:
+  default:
+    driver: overlay
+secrets:
+  botkey:
+    external: true
