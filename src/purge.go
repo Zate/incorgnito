@@ -202,15 +202,36 @@ func (p *Purger) loadChannelList() error {
 	if doExist(clf) == false {
 		_, err := os.Create(clf)
 		if err != nil {
+			log.Println("Failed to Create:", err)
 			return err
 		}
 	}
-	f, err := ioutil.ReadFile(clf)
+	fi, err := os.Stat(clf)
 	if err != nil {
+		log.Println("Failed to Stat:", err)
 		return err
 	}
+	if fi.Size() == 0 {
+		cl := ChannelList{}
+		clout, err := json.MarshalIndent(cl.Channels, "", " ")
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(clf, clout, 0775)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+	f, err := ioutil.ReadFile(clf)
+	if err != nil {
+		log.Println("Failed To Read:", err)
+		return err
+	}
+
 	err = json.Unmarshal([]byte(f), &p.chids)
 	if err != nil {
+		log.Println("Failed to Write:", err)
 		return err
 	}
 	return nil
