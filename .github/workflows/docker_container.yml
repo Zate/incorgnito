@@ -1,0 +1,45 @@
+name: Publish incorgnito container to Docker Hub Registry
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/*.go"
+      - "docker/Dockerfile"
+
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: incorgnito
+
+jobs:
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  ghr_push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build incorgnito image
+        run: docker build src/ --file docker/Dockerfile --tag zate75/incorgnito
+
+      - name: Log intoDocker Hub Container Registry
+      # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
+        run: echo "${{ secrets.DH_PAT }}" | docker login -u zate75 --password-stdin
+
+      - name: Push incorgnito image to Docker Hub Container Registry
+        run: |
+          IMAGE_ID=zate75/${{ github.repository }}
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "master" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
