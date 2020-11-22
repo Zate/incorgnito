@@ -3,7 +3,7 @@ services:
   incorgnito:
     build:
       context: .
-    image: "zate75/incorgnito"
+    image: "zate75/ingorgnito:latest"
     container_name: incorgnito
     command: /incorgnito
     volumes: 
