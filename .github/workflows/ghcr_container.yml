@@ -1,4 +1,4 @@
-name: Publish incorgnito container to GitHub Registry
+name: GitHub Registry Container
 
 on:
   workflow_dispatch:
