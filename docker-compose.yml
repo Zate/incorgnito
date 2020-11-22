@@ -1,9 +1,13 @@
 version: '3'
 services:
-  corgibot:
+  incorgnito:
     build:
       context: .
-    image: "zate75/corgibot"
-    container_name: corgibot
-    command: /corgibot
+    image: "zate75/incorgnito"
+    container_name: incorgnito
+    command: /incorgnito
+    volumes: 
+      - ./ChannelList.json:/ChannelList.json
+    environment: 
+      - BOT_TOKEN
     restart: always

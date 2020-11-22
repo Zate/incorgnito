@@ -1,2 +1,9 @@
 # incorgnito
-CorgiBot with features to facilitate more private discussions
+
+Discrod Bot with features to facilitate more private discussions
+
+## Features
+
+## Setup
+
+## Commands

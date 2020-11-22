@@ -1,14 +1,16 @@
 version: '3.3'
 services:
-  corgibot:
-    image: zate75/corgibot:latest
-    command: /corgibot
+  incorgnito:
+    image: zate75/incorgnito:latest
+    command: /incorgnito
     networks:
      - default
     logging:
       driver: json-file
-    secrets:
-     - botkey
+    volumes: 
+      - ./ChannelList.json:/ChannelList.json
+    environment:
+      - BOT_TOKEN
     deploy:
       placement:
         constraints:
@@ -17,6 +19,3 @@ services:
 networks:
   default:
     driver: overlay
-secrets:
-  botkey:
-    external: true

@@ -15,6 +15,7 @@ import (
 
 const (
 	clf = "ChannelList.json"
+	hrs = 72
 )
 
 // Purger struct
@@ -144,7 +145,7 @@ func (bot *Bot) MsgPurge(c discord.ChannelID) (string, error) {
 	// log.Println("Last:", bot.P.last[c])
 	count := 1
 	pkg := PurgePackage{}
-	pkg.hrs = 72
+	pkg.hrs = hrs
 	pkg.now = time.Now()
 	pkg.chInfo, _ = bot.Ctx.Channel(c)
 	pkg.gInfo, _ = bot.Ctx.Guild(pkg.chInfo.GuildID)
