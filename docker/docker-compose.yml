@@ -6,8 +6,12 @@ services:
     image: "zate75/incorgnito:latest"
     container_name: incorgnito
     command: /incorgnito
-    # volumes: 
-    #   - ./ChannelList.json:/ChannelList.json
+    volumes: 
+      - channelList:/ChannelList.json
     environment: 
       - BOT_TOKEN
     restart: always
+
+volumes:
+  channelList:
+    external: true

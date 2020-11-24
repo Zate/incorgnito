@@ -11,5 +11,5 @@ FROM golang:latest
 WORKDIR /
 #COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /go/src/github.com/zate/incorgnito/incorgnito .
-COPY ChannelList.json .
+# COPY ChannelList.json .
 CMD ["/incorgnito"]
