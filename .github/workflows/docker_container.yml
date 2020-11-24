@@ -30,7 +30,7 @@ jobs:
 
       - name: Push incorgnito image to Docker Hub Container Registry
         run: |
-          IMAGE_ID=zate75/${{ github.repository }}
+          IMAGE_ID=zate75/${{ github.event.repository.name }}
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
          
