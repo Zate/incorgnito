@@ -64,7 +64,6 @@ func (bot *Bot) runPurger(p *Purger) {
 			log.Println("( Global ) [ Purger Cycle Started (30s) ]")
 			log.Println("( Global ) [ Channels being purged:", len(p.chids), "]")
 			for _, u := range p.chids {
-
 				result, err := bot.MsgPurge(u)
 				if err != nil {
 					log.Println(err)
@@ -114,7 +113,6 @@ func (bot *Bot) Purge(m *gateway.MessageCreateEvent, l ...string) (string, error
 	if len(l) == 0 {
 		return bot.Ctx.Help(), nil
 	}
-
 	chinfo, _ := bot.Ctx.Channel(m.ChannelID)
 	re, _ := itemExists(bot.P.chids, m.ChannelID)
 
@@ -153,7 +151,6 @@ func (bot *Bot) MsgPurge(c discord.ChannelID) (string, error) {
 	bot.P.last[c] = pkg.chInfo.LastMessageID
 	// }
 	// log.Println("Last:", bot.P.last[c])
-
 	for {
 		msgs, err := bot.Ctx.MessagesBefore(pkg.chInfo.ID, bot.P.last[c], 100)
 		if err != nil {
