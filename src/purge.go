@@ -100,7 +100,7 @@ func (bot *Bot) runPurger(p *Purger) {
 			}
 			log.Println("(", bot.gInfo(r).Name, ") [", r, "not found in Purger Channel List ]")
 		case d := <-p.delmsg:
-			//log.Println("Got New Msg To Delete:", d.ID, "in", bot.cInfo(d.ChannelID).Name)
+			log.Println("Got New Msg To Delete:", d.ID, "in", bot.cInfo(d.ChannelID).Name)
 			err := bot.Ctx.DeleteMessage(d.ChannelID, d.ID)
 			if err != nil {
 				log.Println("Error Deleting", d.ID, "in", bot.cInfo(d.ChannelID).Name, "Error:", err)
@@ -176,7 +176,7 @@ func (bot *Bot) MsgPurge(c discord.ChannelID) (string, error) {
 				// if err != nil {
 				// 	log.Println("Error Deleting", o.ID, "in", bot.cInfo(o.ChannelID).Name, "with et of", et, "and Error:", err)
 				// }
-				//log.Printf("( %v ) [%v] [ Added %v to delete queue from %v ]", pkg.gInfo.Name, q, o.ID, pkg.chInfo.Name)
+				log.Printf("( %v ) [%v] [ Added %v to delete queue from %v ]", pkg.gInfo.Name, q, o.ID, pkg.chInfo.Name)
 			}
 			//	log.Printf("( %v ) [%v] [ Processed %v from %v ]", pkg.gInfo.Name, q, o.ID, pkg.chInfo.Name)
 			t = q
